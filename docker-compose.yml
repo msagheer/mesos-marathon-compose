@@ -30,8 +30,7 @@ services:
       MESOS_LOG_DIR: /var/log/mesos
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /usr/local/bin/docker:/usr/local/bin/docker
-      - /sys:/sys
+      - /sys/fs/cgroup:/sys/fs/cgroup
     depends_on:
       - zookeeper
 
