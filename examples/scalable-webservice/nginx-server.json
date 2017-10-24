@@ -1,0 +1,37 @@
+{
+  "id": "nginx-server",
+  "cmd": "echo \"Welcome to NGINX!\\nServer hostname is $HOSTNAME\" > /usr/share/nginx/html/index.html && nginx -g 'daemon off;'",
+  "cpus": 0.1,
+  "mem": 64,
+  "instances": 3,
+  "container": {
+    "type": "DOCKER",
+    "docker": {
+      "image": "nginx:stable",
+      "network": "BRIDGE",
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "hostPort": 0,
+          "servicePort": 10001,
+          "protocol": "tcp"
+        }
+      ],
+      "forcePullImage": true
+    }
+  },
+  "healthChecks": [
+    {
+      "protocol": "HTTP",
+      "path": "/",
+      "portIndex": 0,
+      "timeoutSeconds": 10,
+      "gracePeriodSeconds": 10,
+      "intervalSeconds": 2,
+      "maxConsecutiveFailures": 10
+    }
+  ],
+  "labels": {
+    "HAPROXY_GROUP": "webservice"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "id": "dockerized-client",
+  "cmd": "while [ true ] ; do curl -s $MARATHON_LB:$SERVICE_PORT  ; sleep $TIME_INTERVAL ; done",
+  "cpus": 0.1,
+  "mem": 32,
+  "instances": 1,
+  "container": {
+    "type": "DOCKER",
+    "docker": {
+      "image": "tutum/curl:alpine",
+      "network": "HOST",
+      "forcePullImage": true
+    }
+  },
+  "env": {
+    "TIME_INTERVAL": "15",
+    "MARATHON_LB": "127.0.0.1",
+    "SERVICE_PORT": "10001"
+  }
+}

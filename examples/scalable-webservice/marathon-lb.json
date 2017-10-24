@@ -1,0 +1,31 @@
+{
+  "id": "marathon-lb",
+  "cpus": 0.5,
+  "mem": 256,
+  "instances": 1,
+  "container": {
+    "type": "DOCKER",
+    "docker": {
+      "image": "mesosphere/marathon-lb",
+      "network": "HOST",
+      "portMappings": [
+        {
+          "containerPort": 9090,
+          "hostPort": 9090,
+          "protocol": "tcp"
+        }
+      ],
+      "forcePullImage": true
+    }
+  },
+  "args": [
+    "sse",
+    "--marathon",
+    "http://localhost:8080",
+    "--group",
+    "webservice"
+  ],
+  "env": {
+    "PORTS": "9090"
+  }
+}
